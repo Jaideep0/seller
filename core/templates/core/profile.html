@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="w-full md:w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+
+  <h2 class="mb-6 text-2xl text-center">My profile</h2>
+
+  <div class="p-6 bg-white rounded-xl flex items-center justify-center flex-col md:flex-row relative">
+
+    <div class="mb-4 md:mb-0 md:mr-4">
+      <img src="{{ user.profile.image.url }}" class="rounded-full h-32 w-32">
+    </div>
+
+    <!-- Dynamic classes to make the line horizontal on smaller screens -->
+    <div class="hidden md:block w-1 h-32 bg-black mr-4"></div>
+    <div class="md:hidden block h-1 w-64 bg-black mb-4"></div>
+
+    <div>
+      <h2 class="text-2xl">{{ user.username }} </h2>
+      <p class="text-gray-500">{{ user.email }}</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="w-full md:w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+
+  <h2 class="mb-6 text-2xl text-center">{{ title}}</h2>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="space-y-4">
+      {{ form.as_p }}
+      {{ p_form.as_p }}
+    </div>
+
+    {% if form.errors or form.non_field_errors %}
+    <div class="mb-3 p-6 bg-red-100 rounded-xl">
+      {% for field in form %}
+      {{ field.errors }}
+      {% endfor %}
+
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <button class="mt-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+
+  </form>
+
+</div>
+
+{% endblock %}
