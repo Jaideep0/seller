@@ -31,6 +31,12 @@ class NewItemForm(forms.ModelForm):
             }), 
         }
         
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if not image:
+            raise forms.ValidationError("Image field is required.")
+        return image
+        
 class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
